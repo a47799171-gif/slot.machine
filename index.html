@@ -1,0 +1,211 @@
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>숫자 슬롯머신</title>
+
+    <style>
+        body {
+            background: #222;
+            color: white;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            padding-top: 80px;
+        }
+
+        h1 {
+            font-size: 45px;
+        }
+
+        .machine {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 40px;
+        }
+
+        .slot {
+            width: 110px;
+            height: 130px;
+            background: white;
+            color: black;
+            font-size: 90px;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 15px;
+            box-shadow: 0 0 20px #000;
+        }
+
+        button {
+            font-size: 25px;
+            padding: 15px 50px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        #result {
+            font-size: 30px;
+            margin-top: 30px;
+            height: 40px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>🎰 숫자 슬롯머신</h1>
+
+    <div class="machine">
+        <div class="slot" id="slot1">0</div>
+        <div class="slot" id="slot2">0</div>
+        <div class="slot" id="slot3">0</div>
+    </div>
+
+    <button onclick="spin()">SPIN</button>
+
+    <div id="result"></div>
+
+    <p>스페이스바를 눌러도 작동합니다.</p>
+
+
+    <script>
+
+        let spinning = false;
+
+
+        // 0~9 랜덤 숫자
+        function randomNumber() {
+            return Math.floor(Math.random() * 10);
+        }
+
+
+        function spin() {
+
+            // 이미 돌아가는 중이면 다시 실행하지 않음
+            if (spinning) return;
+
+            spinning = true;
+
+            document.getElementById("result").textContent = "";
+
+
+            let slot1 = document.getElementById("slot1");
+            let slot2 = document.getElementById("slot2");
+            let slot3 = document.getElementById("slot3");
+
+
+            // 최종 결과를 미리 결정
+            let final1;
+            let final2;
+            let final3;
+
+
+            // 5% 확률로 777
+            if (Math.random() < 0.05) {
+
+                final1 = 7;
+                final2 = 7;
+                final3 = 7;
+
+            } else {
+
+                final1 = randomNumber();
+                final2 = randomNumber();
+                final3 = randomNumber();
+
+            }
+
+
+            // 숫자 돌아가는 애니메이션
+            let animation1 = setInterval(() => {
+                slot1.textContent = randomNumber();
+            }, 70);
+
+
+            let animation2 = setInterval(() => {
+                slot2.textContent = randomNumber();
+            }, 70);
+
+
+            let animation3 = setInterval(() => {
+                slot3.textContent = randomNumber();
+            }, 70);
+
+
+            // 첫 번째 칸 정지
+            setTimeout(() => {
+
+                clearInterval(animation1);
+
+                slot1.textContent = final1;
+
+            }, 1200);
+
+
+            // 두 번째 칸 정지
+            setTimeout(() => {
+
+                clearInterval(animation2);
+
+                slot2.textContent = final2;
+
+            }, 1800);
+
+
+            // 세 번째 칸 정지
+            setTimeout(() => {
+
+                clearInterval(animation3);
+
+                slot3.textContent = final3;
+
+
+                // 777 확인
+                if (
+                    final1 === 7 &&
+                    final2 === 7 &&
+                    final3 === 7
+                ) {
+
+                    document.getElementById("result").textContent =
+                        "🎉 JACKPOT! 777 🎉";
+
+                } else {
+
+                    document.getElementById("result").textContent =
+                        "다시 도전!";
+
+                }
+
+                spinning = false;
+
+            }, 2400);
+        }
+
+
+        // 스페이스바로 슬롯 실행
+        document.addEventListener("keydown", function(event) {
+
+            if (event.code === "Space") {
+
+                event.preventDefault();
+
+                spin();
+
+            }
+
+        });
+
+    </script>
+
+</body>
+</html>
+```
