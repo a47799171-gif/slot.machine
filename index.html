@@ -6,13 +6,46 @@
     <title>숫자 슬롯머신</title>
 
     <style>
-        body {
-            background: #222;
-            color: white;
-            text-align: center;
-            font-family: Arial, sans-serif;
-            padding-top: 80px;
-        }
+body {
+    background:
+        radial-gradient(circle at 50% 35%, #5b1a8a 0%, #21052f 40%, #07000d 100%);
+
+    color: white;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    padding-top: 80px;
+
+    min-height: 100vh;
+    margin: 0;
+    overflow: hidden;
+}
+
+/* 배경에 빛나는 원 효과 */
+body::before {
+    content: "";
+    position: fixed;
+    width: 500px;
+    height: 500px;
+    background: rgba(255, 0, 200, 0.12);
+    border-radius: 50%;
+    filter: blur(100px);
+    top: -150px;
+    left: -150px;
+    z-index: -1;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    width: 500px;
+    height: 500px;
+    background: rgba(0, 100, 255, 0.12);
+    border-radius: 50%;
+    filter: blur(100px);
+    bottom: -200px;
+    right: -150px;
+    z-index: -1;
+}
 
         h1 {
             font-size: 45px;
